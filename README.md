@@ -15,3 +15,9 @@ A Flask Web App to extract data from storefront product pages
   - pip install -r requirements.txt
 - flask run
 
+
+## Outstanding Items - In Progress - x
+- [ ] Apparel Category Items - mapping multiple seelct sizes to corresponding price with display
+- [x] Category product last item in row not being filtered
+      - researching bs4 module tag selection using multiple class names 
+- [ ] Card img src not always center alignged
