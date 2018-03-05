@@ -23,9 +23,22 @@ class ProductDetails(object):
         self.imgSrc = imgSrc
         self.title = title
         self.description = description
+        self.sizeDetails = []
+
+    def addSizeDetails(self, size, price):
+        self.sizeDetails.append(size, price);
+
+    def jsonify(self):
+        return json.dumps(vars(self), sort_keys=False, indent=2, separators=(',', ': '))
+
+class ProductSizeDetail(object):
+    def __init__(self, size, price ):
+        self.size = size
+        self.price = price
     
     def jsonify(self):
         return json.dumps(vars(self), sort_keys=False, indent=2, separators=(',', ': '))
+
 
 def simple_get(url):
     """
@@ -82,7 +95,7 @@ def get_products(url):
 
         seoFind = html.findAll("meta",  attrs={'name':'keywords'})
         seoKeywords = seoFind[0]["content"]
-
+        
         for div in html.find_all("div", class_=["product_box_wrapper ", "coll_product_box_last"]):
             
             for a in div.find_all('a'):
@@ -110,8 +123,7 @@ def get_product(url):
 
     if response is not None:
         html = BeautifulSoup(response,"html.parser")
-        products = []
-
+        relatedProducts = []
         seoFind = html.findAll("meta",  attrs={'name':'keywords'})
         seoKeywords = seoFind[0]["content"]
 
@@ -125,14 +137,14 @@ def get_product(url):
         imgSrc = html.find("meta",  property="og:image")["content"]
         description = html.find("meta",  property="og:description")["content"]
 
+        productDetails = ProductDetails(productURL, imgSrc, title, description)
+
         for div in html.find_all("div", class_=["product_details_container"]):            
             print(div)
-
-        productDetails = ProductDetails(productURL, imgSrc, title, description)
-        print(vars(productDetails))
+            # for i, li in enumerate(div.find_all('li', class_="custom_option")):
+            #     productDetails.addSizeDetails(li.innerHtml, li["data-price"])
+            #     print(li["contents"], li["data-price"])
         return productDetails, seoKeywords
-
-
 
 if __name__ == '__main__':    
     get_products("https://burlesquedesign.com/collections/posters-prints")
