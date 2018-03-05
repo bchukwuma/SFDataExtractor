@@ -1,7 +1,7 @@
 from requests import get
 from requests.exceptions import RequestException
-from contextlib import closing
 from bs4 import BeautifulSoup
+from contextlib import closing
 import re
 import json
 
@@ -41,11 +41,6 @@ class ProductSizeDetail(object):
 
 
 def simple_get(url):
-    """
-    Attempts to get the content at `url` by making an HTTP GET request.
-    If the content-type of response is some kind of html/xml, return the
-    text content, otherwise return None
-    """
     try:
         with closing(get(url,stream=True)) as resp:
 
@@ -58,20 +53,12 @@ def simple_get(url):
         return None
 
 def is_good_response(resp):
-    """
-    Returns true if the response seems to be html, false otherwise
-    """
     content_type = resp.headers['Content-Type']
     return (resp.status_code == 200
             and content_type is not None 
             and content_type.find('html') > -1)
 
 def log_error(e):
-    """
-    It is always a good idea to log errors. 
-    This function just prints them, but you can
-    make it do anything.
-    """
     print(e)
 
 def build_product():
