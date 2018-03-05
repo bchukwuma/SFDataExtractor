@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+{% block content %}
+    <ul id="tabs-swipe-demo" class="tabs">
+        <li class="tab col s6"><a class="active" href="#main-tab">Pretty</a></li>
+        <li class="tab col s6"><a href="#technical">Json</a></li>
+      </ul>
+    <div id="main-tab" class="col s12 ">
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <h1 class="header center">Welcome to the {{ category.title() }} Category Page!</h1>
+                <div class="row center">
+                <h5 class="header col s12 light">Happy Browsing..</h5>
+                </div>  
+            </div>
+        </div>
+        <div class="section">
+            <div class="w3-container w3-center" style="width: auto">
+                <div class="omniClass">
+                    {% for product in (productsList) %}
+                        <div class="card w3-hover-shadow w3-dark-grey w3-center" style="margin: 25px; padding: 30px">
+                            <img src={{product.imgSrc}} style="height: 75%; width: auto">
+                            <div class="card-content">
+                                <span class="card-title activator text-darken-4">{{ product.title }}<i class="material-icons right">more_vert</i></span>
+                                <p>{{ product.price }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a href={{product.url}}>Visit Store Page</a>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">{{ product.title }}<i class="material-icons right">close</i></span>
+                                <pre>{{ product.jsonify() }}</pre>
+                                <input style="color: black" type="text" rows="10" id="singleProductJson{{loop.index0|string}}" value="{{ product.jsonify() }}"></input>
+                                <div class="w3-center">            
+                                    <a class="btn waves-effect waves-light" onclick="jsonSingleCopy()">Extract
+                                        <i class="small material-icons right">content_copy</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div id="technical">
+            <div class="section no-pad-bot" id="index-banner">
+                <div class="container">
+                    <h1 class="header center">{{ category.title() }} Category Json Output!</h1>
+                    <br>
+                    <h3 class="header center">Seo Keywords: {{seo}}</h3>
+                </div>
+            </div>
+            <div class="section">
+                <div class="w3-container w3-center" style="width: auto;">
+                    <pre>[
+                        {%- for product in (productsList) -%}
+                        {{ product.jsonify() }}
+                        {%- if not loop.last -%}
+                        ,
+                        {%- endif -%} 
+                        {%- endfor -%}
+                    ]</pre>
+                </div>
+            </div>
+            <input type="text "id="fullCategoryJson" value="[{%- for product in (productsList) -%}
+                {{ product.jsonify() }}
+                {%- if not loop.last -%}
+                    ,
+                {%- endif -%} 
+            {%- endfor -%}]">
+        </input>
+    </div>
+    <div class="fixed-action-btn horizontal">
+            <a class="btn-floating btn-large red">
+            <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+            <li>
+                <a title="Original Shop" class="btn-floating red medium" href="{{url}}"><i class="material-icons">shop</i></a>
+            </li>
+            <li>
+                <button id="copyCategoryJson" title="Copy Category Json" class="btn-floating green darken-1 medium" ><i class="material-icons">content_copy</i></button>
+            </li>
+            </ul>
+    </div>         
+{% endblock %}
+
+{% block script %}
+<script>    
+    $(document).ready(function(){
+        $('.omniClass').slick({
+            centerMode: true,
+            centerPadding: '100px',
+            slidesToShow: 1,
+            variableWidth: true,
+            infinite: true,
+            arrows: true,       
+            focusOnSelect: true,
+
+            responsive: [
+                {
+                breakpoint: 768,
+                settings: {
+                    arrows: true,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+                },
+                {
+                breakpoint: 480,
+                settings: {
+                    arrows: true,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+                }
+            ]
+            });
+    });
+
+    function jsonSingleCopy() {
+        var currentIndex = $('.omniClass').slick('slickCurrentSlide');
+        var target = document.getElementById("singleProductJson"+currentIndex.toString());
+        target.select();
+        document.execCommand("Copy");
+    } 
+
+    function jsonFullCopy() {
+        var copyText = document.getElementById("fullCategoryJson");
+        copyText.select();
+        document.execCommand("Copy");
+    }
+
+    var btns = document.querySelectorAll('button');
+    var clipboard = new ClipboardJS(btns);
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+
+    document.getElementById("copyCategoryJson").addEventListener("click", function() {
+        jsonFullCopy()
+    }, false);
+
+</script>
+{% endblock %}
