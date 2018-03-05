@@ -3,13 +3,12 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>OmniTV!</title>
+  <title>Homework</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/materialize.css')}}" type='text/css' rel='stylesheet'/>
   <link href="{{ url_for('static', filename='css/style.css')}}" type='text/css'  rel='stylesheet'/>
-  <link href="{{ url_for('static', filename='css/materialize-social.css')}}" type='text/css' rel='stylesheet'/> 
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css')}}"/>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick-theme.css')}}"/>
@@ -17,9 +16,9 @@
 
   <body>
       <nav class="lighten-1" role="navigation">
-          <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">OmniTV!</a>
+          <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Storefront Data Extractor</a>
             <ul class="right hide-on-med-and-down">
-              <li><a href="/">Secret Room!</a></li>
+              <li><a href="/">Home</a></li>
             </ul>
       
             <ul id="nav-mobile" class="side-nav">
@@ -55,22 +54,13 @@
           <div class="row">
             <div class="col l6 s12">
               <h5 class="white-text">Our Vision</h5>
-              <p class="grey-text text-lighten-4">Eventually this will be a sort of analytics tool for Twitch streaming content..</p>   
-    
-            </div>
-            <div class="col l6 s12">
-              <h5 class="white-text">Connect</h5>
-              <ul>
-                <li><a class="waves-effect waves-light btn social twitter"><i class="small material-icons fa-twitter">local_hotel</i>@Kleptomaniacist</a></li>
-              </ul>
+              <p class="grey-text text-lighten-4">Web content extraction made easy..</p>
             </div>
           </div>
         </div>
       </footer>
 
-
     <!--Import jQuery before materialize.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/materialize.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/init.js')}}"></script>

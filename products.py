@@ -138,9 +138,9 @@ def get_product(url):
         description = html.find("meta",  property="og:description")["content"]
 
         productDetails = ProductDetails(productURL, imgSrc, title, description)
+        print(vars(productDetails))
 
-        for div in html.find_all("div", class_=["product_details_container"]):            
-            print(div)
+        # for div in html.find_all("div", class_=["product_details_container"]):            
             # for i, li in enumerate(div.find_all('li', class_="custom_option")):
             #     productDetails.addSizeDetails(li.innerHtml, li["data-price"])
             #     print(li["contents"], li["data-price"])
