@@ -12,7 +12,7 @@ class Product(object):
         self.imgSrc = imgSrc
         self.title = title
         self.price = price
-    
+        
     def jsonify(self):
         return json.dumps(vars(self), sort_keys=False, indent=2, separators=(',', ': '))
 

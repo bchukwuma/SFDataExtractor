@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css')}}"/>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick-theme.css')}}"/>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flex.css')}}"/>
 </head>
 
   <body>
@@ -27,11 +28,9 @@
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
           </div>
         </nav>
-    <div class="wrapper">
         <div class="container">
           <div class="section">
-          <div class="grid col s18 m6">
-              <div id="contented">
+          <div class="grid col s12 m6">
           <!-- child template -->
           {% block content %}{% endblock %}
 
@@ -44,11 +43,10 @@
           {% for message in get_flashed_messages() %}
             {{ message }}
           {% endfor %}
-          </div>
+
           </div>
         </div>
       </div>
-    </div>
     <footer class="page-footer grey">
         <div class="container">
           <div class="row">

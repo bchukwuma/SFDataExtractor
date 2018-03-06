@@ -4,39 +4,43 @@
         <li class="tab col s6"><a class="active" href="#main-tab">Pretty</a></li>
         <li class="tab col s6"><a href="#technical">Json</a></li>
       </ul>
-    <div id="main-tab" class="col s12 ">
+    <div id="main-tab" class="col s16 ">
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
                 <h1 class="header center">{{ category.title() }} Category Page!</h1>
-                <div class="row center">
-                <h5 class="header col s12 light">Happy Browsing..</h5>
-                </div>  
             </div>
         </div>
         <div class="section">
-            <div class="w3-container w3-center" style="width: auto">
-                <div class="omniClass">
+            <div class="w3-container w3-center col s12">
+                <div class="flex">
                     {% for product in (productsList) %}
-                        <div class="card w3-hover-shadow w3-dark-grey w3-center" style="margin: 25px; padding: 30px">
-                            <img src={{product.imgSrc}} style="height: 75%; width: auto">
-                            <div class="card-content">
-                                <span class="card-title activator text-darken-4">{{ product.title }}<i class="material-icons right">more_vert</i></span>
-                                <p>{{ product.price }}</p>
-                            </div>
-                            <div class="card-action">
-                                <a href={{product.url}}>Visit Store Page</a>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">{{ product.title }}<i class="material-icons right">close</i></span>
-                                <pre>{{ product.jsonify() }}</pre>
-                                <input style="color: black" type="text" rows="10" id="singleProductJson{{loop.index0|string}}" value="{{ product.jsonify() }}"></input>
-                                <div class="w3-center">            
-                                    <a class="btn waves-effect waves-light" onclick="jsonSingleCopy()">Extract
-                                        <i class="small material-icons right">content_copy</i>
-                                    </a>
+                        <section>
+                            <div class="card" style="margin: 5px; padding: 10px; height: 100%; width: 100%">
+                                <section class="row" style="height: 80%">
+                                    <div class="row" style="height: 80%; vertical-align: middle">
+                                        <img src={{product.imgSrc}} alt={{product.title.title()}} />
+                                    </div>
+                                    <div class="row">
+                                        <h2>{{ product.title }}</h2>
+                                        <br>
+                                    </div>
+                                </section>
+                                <section class="row">
+                                    <aside>
+                                        <span class="card-title activator text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                        <ul>
+                                        <li>{{ product.price }}</li>
+                                        </ul>
+                                        <button><a href={{product.url}}>Visit Store Page</a></button>
+                                    </aside>
+                                </section>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">{{ product.title }}<i class="material-icons right">close</i></span>
+                                    <pre>{{ product.jsonify() }}</pre>
+                                    <input style="color: black" type="text" rows="10" id="singleProductJson{{loop.index0|string}}" value="{{ product.jsonify() }}"></input>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     {% endfor %}
                 </div>
             </div> 
@@ -119,13 +123,6 @@
             ]
             });
     });
-
-    function jsonSingleCopy() {
-        var currentIndex = $('.omniClass').slick('slickCurrentSlide');
-        var target = document.getElementById("singleProductJson"+currentIndex.toString());
-        target.select();
-        document.execCommand("Copy");
-    } 
 
     function jsonFullCopy() {
         var copyText = document.getElementById("fullCategoryJson");
