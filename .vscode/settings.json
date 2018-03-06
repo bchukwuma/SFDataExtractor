@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+    "python.pythonPath": "C:\\Users\\Benedict\\AppData\\Local\\Programs\\Python\\Python36\\python.exe",
     "python.linting.enabled": false
 }
