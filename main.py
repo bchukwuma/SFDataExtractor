@@ -23,8 +23,8 @@ def extract():
             category = url[url.index('collections/')+sliceVal:]
             return render_template("category.html", category=category, productsList=productsList, url=url, seo=seo)
         elif 'products/' in url:
-            productDetails, seo = get_product(url)
-            return render_template("product.html", productDetails=productDetails, url=url, seo=seo)
+            productDetails, seo, relatedProducts = get_product(url)
+            return render_template("product.html", productDetails=productDetails, url=url, seo=seo, relatedProducts=relatedProducts)
         else:
             return render_template("error.html")
     else:

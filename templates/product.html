@@ -7,7 +7,7 @@
 <div id="main-tab" class="col s12 ">
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
-            <h1 class="header center">{{ productDetails.title.title() }} Product Page!</h1>
+            <h1 class="header center">{{ productDetails.name.title() }} Product Page!</h1>
         </div>  
     </div>
     <div class="section">
@@ -15,14 +15,14 @@
             <div class="card w3-hover-shadow w3-dark-grey w3-center" style="margin: 25px; padding: 30px">
                 <img src={{productDetails.imgSrc}}/>
                 <div class="card-content">
-                    <span class="card-title activator text-darken-4">{{ productDetails.title }}<i class="material-icons right">more_vert</i></span>
+                    <span class="card-title activator text-darken-4">{{ productDetails.name }}<i class="material-icons right">more_vert</i></span>
                     <p>{{ productDetails.description }}</p>
                 </div>
                 <div class="card-action">
                     <a href={{productDetails.url}}>Visit Store Page</a>
                 </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ productDetails.title }}
+                    <span class="card-title grey-text text-darken-4">{{ productDetails.name }}
                         <i class="material-icons right">close</i>
                     </span>
                     <pre>{{ productDetails.jsonify() }}</pre>
@@ -41,7 +41,7 @@
 <div id="technical">
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
-                <h3 class="header center">{{ productDetails.title.title() }} Category Json Output!</h3>
+                <h3 class="header center">{{ productDetails.name.title() }} Category Json Output!</h3>
                 <br>
                 <h3 class="header center">Seo Keywords: {{seo}}</h3>
             </div>
