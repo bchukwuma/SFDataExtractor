@@ -17,7 +17,5 @@ A Flask Web App to extract data from storefront product pages
 
 
 ## Outstanding Items - In Progress - x
-- [ ] Apparel Category Items - mapping multiple select sizes to corresponding price with display
-- [x] Category product last item in row not being filtered
-  - researching bs4 module tag selection using multiple class names 
+- [x] Moving inline styling to static css file
 - [ ] Card img src not always center alignged
