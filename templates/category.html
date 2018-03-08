@@ -31,13 +31,22 @@
                                         <ul>
                                         <li>{{ product.price }}</li>
                                         </ul>
-                                        <button><a href={{product.url}}>Visit Store Page</a></button>
+                                        <form method="POST" action='/extract'>
+                                            <input type="hidden" name="url" value="{{product.url}}">
+                                            <div class="w3-center">            
+                                                <button class="btn waves-effect waves-light" type="submit" name="action">Extract
+                                                    <i class="small material-icons right">content_copy</i>
+                                                </button>
+                                            </div>
+                                        </form>
                                     </aside>
                                 </section>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">{{ product.title }}<i class="material-icons right">close</i></span>
                                     <pre>{{ product.jsonify() }}</pre>
                                     <input style="color: black" type="text" rows="10" id="singleProductJson{{loop.index0|string}}" value="{{ product.jsonify() }}"></input>
+                                    <br>
+                                    <button><a href={{product.url}}>Visit Store Page</a></button>
                                 </div>
                             </div>
                         </section>

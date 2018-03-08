@@ -18,27 +18,31 @@ class Product(object):
 
 class ProductDetails(object):
 
-    def __init__(self, pid, name, sku, url, imgSrc, category, description):
+    def __init__(self, pid, name, price, url, imgSrc, category, description):
         self.pid = pid
         self.name = name
-        self.sku = sku
+        self.price = price
         self.url = url
         self.imgSrc = imgSrc
         self.category = category
         self.description = description
-        self.sizeDetails = []
+        self.variantDetails = []
 
-    def addSizeDetails(self, size, price):
-        self.sizeDetails.append(size, price);
+    def addVariantDetails(self, vid, variant, price):
+        keys = ['vid', 'variant', 'price']
+        values = [vid, variant, price]
+        self.variantDetails.append(dict(zip(keys, values)));
+        
 
-    def jsonify(self):
-        return json.dumps(vars(self), sort_keys=False, indent=2, separators=(',', ': '))
+    def get_default_variantDetails(self):
+        if (self.variantDetails[0] is None):
+            keys = ['vid', 'variant', 'price']
+            values = ["n/a$", "n/a$", "n/a$"]
+            self.variantDetails.append(zip(keys, values));            
+            return  self.variantDetails[0]
+        else:
+            return  self.variantDetails[0]
 
-class ProductSizeDetail(object):
-    def __init__(self, size, price ):
-        self.size = size
-        self.price = price
-    
     def jsonify(self):
         return json.dumps(vars(self), sort_keys=False, indent=2, separators=(',', ': '))
 
@@ -123,23 +127,24 @@ def get_product(url):
         name = ''
         price = ''
         description = ''
-        pid = 'N/A'
         category = 'N/A'
-        sku = 'N/A'
+        variantDetails = []
 
-        # pid, name, sku = parse_product_details()
-        # parsing title as name, name value is loaded via js after source is returned
         title = html.find("meta",  property="og:title")["content"]
         imgSrc = html.find("meta",  property="og:image")["content"]
         description = html.find("meta",  property="og:description")["content"]
-        #var meta = {"product":{"id":412357787679,"vendor":"Burlesque of North America","type":"Posters \/ Prints","variants":[{"id":5339864924191,"price":3000,"name":"Tools of the Trade: Video Game Edition Variant","public_title":null,"sku":"Tools_VideoGame_VARIANT"}]},"page":{"pageType":"product","resourceType":"product","resourceId":412357787679}};
 
+        productDetails = ProductDetails('', title, '', productURL, imgSrc, category, description)
 
-        metaVarsString = html.find_all(text='var meta')
+        for div in html.find_all("div", class_="variant_dropdown"):
+            for li in div.find_all('li', class_="custom_option"):
+                if not productDetails.pid:
+                    productDetails.pid = li["data-option"]
+                if not productDetails.price:
+                    productDetails.price = li["data-price"]
+                productDetails.addVariantDetails( li["data-option"], li.contents[0].strip(), li['data-price'])
 
-        relatedProducts = get_related_products(html, ["product_box_wrapper ", "product_box_wrapper last_product_wrapper"])        
-        productDetails = ProductDetails(pid, title, sku, productURL, imgSrc, category, description)
-
+        relatedProducts = get_related_products(html, ["product_box_wrapper ", "product_box_wrapper last_product_wrapper"])
         return productDetails, seoKeywords, relatedProducts
 
 
@@ -172,18 +177,3 @@ def get_related_products(html, targetString):
                 product = Product(relatedProductURL, relatedImgSrc, relatedTitle, relatedPrice)
                 relatedProducts.append(product)
     return relatedProducts
-
-
-def get_meta_vars():
-    url = "https://burlesquedesign.com/collections/posters-prints"
-    response = simple_get(url)
-
-    if response is not None:
-        html = BeautifulSoup(response,"html.parser")
-        
-        searchString = html.head.prettify(formatter="xml")
-
-        print(searchString)            
-
-if __name__ == '__main__':    
-    get_meta_vars()
