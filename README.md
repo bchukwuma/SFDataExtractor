@@ -6,7 +6,7 @@ A Flask Web App to extract data from storefront product pages
 - Install Python 3.6+
 - Install Editor of choice **I'm using VS Code with Python Extensions
 - Open terminal
-- **git clone https://github.com/bchukwuma/omnitv.git**
+- **git clone https://github.com/bchukwuma/SFDataExtractor**
 - ** If  you are using VS Code **
   - Set your Python Interpreter 
     - **Ctrl + Shft + P** & Type "Python select interpreter"
