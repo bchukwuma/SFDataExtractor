@@ -80,40 +80,44 @@ def build_product():
 def get_products(url):
     if '/collections/' not in url:
         raise Exception('Category Lookup failure. Bad URL..') 
-    # url = "https://burlesquedesign.com/collections/posters-prints"
+
     response = simple_get(url)
 
     if response is not None:
         html = BeautifulSoup(response,"html.parser")
         products = []
+        appendLast = ''
         targetString = ["product_box_wrapper ", "product_box_wrapper last_product_wrapper"]
         seoFind = html.findAll("meta",  attrs={'name':'keywords'})
         seoKeywords = seoFind[0]["content"]
-        
 
-        for div in html.find_all("div", class_=["product_box_wrapper ", "coll_product_box_last"]):
-            
-            for a in div.find_all('a'):
-                if '/products' in a['href']:
-                    productURL = 'https://burlesquedesign.com{}'.format(a['href'])
+        for index, stringVal in enumerate(targetString):
+            if (index > 0):
+                appendLast = "coll_product_box_last"
+            for div in html.find_all("div", stringVal):
+                for a in div.find_all('a'):
+                    if '/products' in a['href']:
+                        productURL = 'https://burlesquedesign.com{}'.format(a['href'])
 
-            for li in div.find_all('li', class_="coll_product_box "):
-                for img in li.find_all('img'):
-                    imgSrc = img['src']
+                for li in div.find_all('li', class_="coll_product_box {}".format(appendLast)):
+                    for img in li.find_all('img'):
+                        imgSrc = img['src']
 
-                for spanTitle in li.find_all('span', class_="coll_product_details_title"):
-                    title = spanTitle.text
+                    for spanTitle in li.find_all('span', class_="coll_product_details_title"):
+                        title = spanTitle.text
 
-                for spanMoney in li.find_all('span', class_="money"):
-                    price = spanMoney.text
-            product = Product(productURL, imgSrc, title, price)
-            products.append(product)
+                    for spanMoney in li.find_all('span', class_="money"):
+                        price = spanMoney.text
+                product = Product(productURL, imgSrc, title, price)
+                products.append(product)
         return products, seoKeywords
+    else:
+         raise Exception('Category Lookup failure. No response from URL..') 
 
 def get_product(url):
     if '/products/' not in url:
         raise Exception('Product Lookup failure. Bad URL..') 
-    # url = "https://burlesquedesign.com/collections/posters-prints"
+
     response = simple_get(url)
 
     if response is not None:
@@ -155,7 +159,7 @@ def get_related_products(html, targetString):
         if (index > 0):
             appendLast = "coll_product_box_last"
         for div1 in html.find_all(attrs={"id" : "related-products"}):
-            for div2 in div1.find_all("div", targetString[index]):
+            for div2 in div1.find_all("div", stringVal):
                 relatedProductURL = ''
                 relatedImgSrc = ''
                 relatedTitle = ''
