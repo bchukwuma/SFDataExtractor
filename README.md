@@ -1,6 +1,20 @@
 # Homework
 A Flask Web App to extract data from storefront product pages
 
+## Instructions for Mac based local deploy
+
+- Install/Verify Python v2.7+ is installed.
+- Open Terminal
+  - git clone https://github.com/bchukwuma/SFDataExtractor
+- **Optional** Setup Virtual Environment
+  - Activate Environment
+    - **source bin/activate**
+- Install Flask
+  - **pip install flask**
+- Install modules
+  - **pip install -r requirements.txt**
+- python main.py 
+
 ## Instructions for a Windows based local deploy
 
 - Install Python 3.6+
